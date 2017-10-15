@@ -49,16 +49,33 @@ input[type="text"] {
      box-shadow: none;
 }
 
-.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .active > a {
-  background-image: none;
-  box-shadow: none;
-  -webkit-box-shadow: none;
-}
-
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
+  background-image: none;
+  box-shadow: none;
+  -webkit-box-shadow: none;
   background-color: transparent;
   color: black;
   font-weight: bold;
+}
+
+.gallery {
+  margin-top: 50px;
+}
+
+.imageFrame {
+  overflow: hidden;
+  height: 150px;
+  background-image:url('https://i.imgur.com/ZyW7heg.jpg');
+  background-size: 100%;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+i {
+  color: red;
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
 }
