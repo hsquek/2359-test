@@ -98,7 +98,6 @@ class App extends Component {
   }
 
   handleFetchMoreImages (e) {
-    console.log(e)
     var self = this
     var queryString = this.state.query
 
