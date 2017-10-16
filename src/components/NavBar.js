@@ -14,7 +14,11 @@ class NavBar extends Component {
         <Nav activeKey={this.props.activeKey} onSelect={this.props.handleSelect}>
           <NavItem eventKey={'Search'} href='#'>Search</NavItem>
           <NavItem eventKey={'Favourites'} href='#'>
-            {!this.props.numFavourited ? 'Favourites' : 'Favourites (' + this.props.numFavourited + ')'}
+            {
+              !this.props.numFavourited ?
+              'Favourites' :
+              'Favourites (' + this.props.numFavourited + ')'
+            }
           </NavItem>
         </Nav>
       </Navbar>

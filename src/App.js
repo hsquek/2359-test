@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import $ from 'jquery'
 import NavBar from './components/NavBar.js'
 import Gallery from './components/Gallery.js'
-import Status from './components/Status.js'
 import SearchGallery from './components/SearchGallery.js'
 import Footer from './components/Footer.js'
 import isPresentInArr from './helpers/isPresentInArr.js'
@@ -12,6 +11,7 @@ class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      query: '',
       status: '',
       images: [],
       favourites: [],
@@ -20,10 +20,12 @@ class App extends Component {
     this.handleSelectActiveTab = this.handleSelectActiveTab.bind(this)
     this.handleImageSearch = this.handleImageSearch.bind(this)
     this.handleFavouriteClick = this.handleFavouriteClick.bind(this)
+    this.handleFetchMoreImages = this.handleFetchMoreImages.bind(this)
   }
 
   getInitialState () {
     return {
+      query: '',
       status: '',
       images: [],
       favourites: [],
@@ -40,9 +42,11 @@ class App extends Component {
   handleImageSearch (e) {
     e.preventDefault()
     var self = this
+    var queryString = e.target.value
 
-    if (e.target.value === '') {
+    if (queryString === '') {
       return this.setState({
+        query: queryString,
         images: []
       })
     }
@@ -51,10 +55,9 @@ class App extends Component {
       type: 'GET',
       url: 'http://api.giphy.com/v1/gifs/search',
       data: {
-        q: e.target.value,
+        q: queryString,
         api_key: 'LBPCJHl57kzqzkPLdwVBajQb5j2k1doL',
         limit: 8
-        // offset: this.state.images.length
       },
       dataType: 'json',
       timeout: 4000,
@@ -66,8 +69,8 @@ class App extends Component {
     })
     .then(function (res) {
       self.setState({
-        // images: self.state.images.concat(res.data)
         status: '',
+        query: queryString,
         images: res.data.concat([])
       })
     })
@@ -80,17 +83,54 @@ class App extends Component {
   }
 
   handleFavouriteClick (e) {
-    let isAlreadyFavourite = isPresentInArr(this.state.favourites, e)
+    var isAlreadyFavourite = isPresentInArr(this.state.favourites, e)
 
     if (!isAlreadyFavourite) {
       return this.setState({
         favourites: this.state.favourites.concat(e)
       })
     }
-    let idx = isAlreadyFavourite - 1
+    var idx = isAlreadyFavourite - 1
     return this.setState({
       favourites: this.state.favourites.slice(0, idx)
                                         .concat(this.state.favourites.slice(idx + 1, this.state.favourites.length))
+    })
+  }
+
+  handleFetchMoreImages (e) {
+    console.log(e)
+    var self = this
+    var queryString = this.state.query
+
+    $.ajax({
+      type: 'GET',
+      url: 'http://api.giphy.com/v1/gifs/search',
+      data: {
+        q: queryString,
+        api_key: 'LBPCJHl57kzqzkPLdwVBajQb5j2k1doL',
+        limit: 8,
+        offset: this.state.images.length
+      },
+      dataType: 'json',
+      timeout: 4000,
+      beforeSend: function () {
+        self.setState({
+          status: 'Loading...'
+        })
+      }
+    })
+    .then(function (res) {
+      self.setState({
+        images: self.state.images.concat(res.data),
+        status: '',
+        query: queryString
+      })
+    })
+    .catch(function (err) {
+      console.log(err)
+      self.setState({
+        status: 'An error occurred. Please try again.'
+      })
     })
   }
 
@@ -105,14 +145,16 @@ class App extends Component {
             <SearchGallery handleImageSearch={this.handleImageSearch}
               imagesToRender={this.state.images}
               favouritedImages={this.state.favourites}
-              handleFavouriteClick={this.handleFavouriteClick} /> :
+              handleFavouriteClick={this.handleFavouriteClick}
+              statusMessage={this.state.status}
+              query={this.state.query}
+              handleFetchMoreImages={this.handleFetchMoreImages} /> :
               <Gallery imagesToRender={this.state.favourites}
                 favouritedImages={this.state.favourites}
-                handleFavouriteClick={this.handleFavouriteClick} />
-        }
-        {
-          this.state.status === '' ?
-          null : <Status statusMessage={this.state.status} />
+                handleFavouriteClick={this.handleFavouriteClick}
+                statusMessage={!this.state.favourites.length ?
+                                'You have no favourites yet!' : ''
+                            } />
         }
         <Footer />
       </div>

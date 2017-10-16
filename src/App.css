@@ -5,6 +5,7 @@ html, body {
 #root {
   min-height: 100%;
   position: relative;
+  padding-bottom: 100px;
 }
 
 .App {
@@ -45,8 +46,9 @@ form {
 }
 
 span.input-group {
-  width: 100%;
-  border-bottom: black 1px solid;
+  width: 80%;
+  border-bottom: grey 1px solid;
+  margin: 0 auto;
 }
 
 input[type="text"] {
@@ -112,4 +114,19 @@ i {
 
 .copyright {
   text-align: right;
+}
+
+.fetchMoreImages {
+  float: right;
+}
+
+.btn-primary {
+  border-radius: 1%;
+  border: none;
+}
+
+.navbar-default {
+  background-image: none;
+  border: none;
+  border-bottom: grey 1px solid;
 }

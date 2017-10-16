@@ -45,5 +45,3 @@ class Image extends Component {
 }
 
 export default Image
-
-// <a className='imageLink' href={this.props.image.images.original.url} />

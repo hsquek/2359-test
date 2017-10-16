@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ImageSearch from './ImageSearch.js'
 import Gallery from './Gallery.js'
+import FetchButton from './FetchButton.js'
 
 class SearchGallery extends Component {
   render () {
@@ -10,6 +11,8 @@ class SearchGallery extends Component {
         <Gallery imagesToRender={this.props.imagesToRender}
           handleFavouriteClick={this.props.handleFavouriteClick}
           favouritedImages={this.props.favouritedImages} />
+        { this.props.query ?
+          <FetchButton handleFetchMoreImages={this.props.handleFetchMoreImages} /> : '' }
       </div>
     )
   }

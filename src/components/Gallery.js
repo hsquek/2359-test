@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Grid, Row } from 'react-bootstrap'
 import Image from './Image.js'
+import Status from './Status.js'
 import isPresentInArr from '../helpers/isPresentInArr.js'
 
 class Gallery extends Component {
@@ -8,7 +9,7 @@ class Gallery extends Component {
     const images = this.props.imagesToRender
     const handleFavouriteClick = this.props.handleFavouriteClick
     const favouritedImages = this.props.favouritedImages
-    
+
     const imageTiles = images.map(function (image) {
       const isFavourite = isPresentInArr(favouritedImages, image)
       return (
@@ -21,6 +22,7 @@ class Gallery extends Component {
 
     return (
       <Grid className='gallery'>
+        <Status statusMessage={this.props.statusMessage} />
         <Row className='show-grid'>
           {imageTiles}
         </Row>
