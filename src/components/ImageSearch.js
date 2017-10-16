@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { FormGroup, InputGroup, FormControl } from 'react-bootstrap'
 
 class ImageSearch extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -18,7 +18,7 @@ class ImageSearch extends Component {
         <form onSubmit={this.handleSubmit}>
           <FormGroup bsSize='large'>
             <InputGroup>
-              <FormControl type='text' placeholder='Start searching for images!' onChange={this.props.handleImageSearch}/>
+              <FormControl type='text' placeholder='Start searching for images!' onChange={this.props.handleImageSearch} />
             </InputGroup>
           </FormGroup>
         </form>

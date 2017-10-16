@@ -10,7 +10,8 @@ class SearchGallery extends Component {
         <ImageSearch handleImageSearch={this.props.handleImageSearch} />
         <Gallery imagesToRender={this.props.imagesToRender}
           handleFavouriteClick={this.props.handleFavouriteClick}
-          favouritedImages={this.props.favouritedImages} />
+          favouritedImages={this.props.favouritedImages}
+          statusMessage={this.props.statusMessage} />
         { this.props.query ?
           <FetchButton handleFetchMoreImages={this.props.handleFetchMoreImages} /> : '' }
       </div>
