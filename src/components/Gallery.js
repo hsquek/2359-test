@@ -22,7 +22,7 @@ class Gallery extends Component {
 
     return (
       <Grid className='gallery'>
-        <Status className="status" statusMessage={this.props.statusMessage} />
+        <Status statusMessage={this.props.statusMessage} />
         <Row className='show-grid'>
           {imageTiles}
         </Row>
