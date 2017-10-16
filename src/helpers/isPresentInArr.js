@@ -1,11 +1,12 @@
-function isPresentInArr(arr, obj) {
+// returns false if not present in array; returns index (one-based)
+function isPresentInArr (arr, obj) {
   if (!arr.length) {
     return false
   }
 
-  for (var i = 0; i < arr.length; i++) {
-    if (arr[i].id === obj.id) {
-      return true
+  for (var i = 1; i <= arr.length; i++) {
+    if (arr[i-1].id === obj.id) {
+      return i
     }
   }
 

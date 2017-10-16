@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import $ from 'jquery'
 import NavBar from './components/NavBar.js'
-// import ImageSearch from './components/ImageSearch.js'
 import Gallery from './components/Gallery.js'
+import Status from './components/Status.js'
 import SearchGallery from './components/SearchGallery.js'
 import Footer from './components/Footer.js'
 import isPresentInArr from './helpers/isPresentInArr.js'
@@ -57,26 +57,41 @@ class App extends Component {
         // offset: this.state.images.length
       },
       dataType: 'json',
-      timeout: 2000
+      timeout: 4000,
+      beforeSend: function () {
+        self.setState({
+          status: 'Loading...'
+        })
+      }
     })
     .then(function (res) {
       self.setState({
         // images: self.state.images.concat(res.data)
+        status: '',
         images: res.data.concat([])
       })
     })
     .catch(function (err) {
       console.log(err)
+      self.setState({
+        status: 'An error occurred. Please try again.'
+      })
     })
   }
 
   handleFavouriteClick (e) {
-    var isAlreadyFavourite = isPresentInArr(this.state.favourites, e)
+    let isAlreadyFavourite = isPresentInArr(this.state.favourites, e)
+
     if (!isAlreadyFavourite) {
       return this.setState({
         favourites: this.state.favourites.concat(e)
       })
     }
+    let idx = isAlreadyFavourite - 1
+    return this.setState({
+      favourites: this.state.favourites.slice(0, idx)
+                                        .concat(this.state.favourites.slice(idx + 1, this.state.favourites.length))
+    })
   }
 
   render () {
@@ -94,6 +109,10 @@ class App extends Component {
               <Gallery imagesToRender={this.state.favourites}
                 favouritedImages={this.state.favourites}
                 handleFavouriteClick={this.handleFavouriteClick} />
+        }
+        {
+          this.state.status === '' ?
+          null : <Status statusMessage={this.state.status} />
         }
         <Footer />
       </div>
