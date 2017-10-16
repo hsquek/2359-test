@@ -1,3 +1,12 @@
+html, body {
+  height: 100%;
+}
+
+#root {
+  min-height: 100%;
+  position: relative;
+}
+
 .App {
   text-align: center;
 }
@@ -49,6 +58,10 @@ input[type="text"] {
      box-shadow: none;
 }
 
+.navbar-brand {
+  font-size: 16px;
+}
+
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
@@ -66,16 +79,37 @@ input[type="text"] {
 
 .imageFrame {
   overflow: hidden;
-  height: 150px;
-  background-image:url('https://i.imgur.com/ZyW7heg.jpg');
-  background-size: 100%;
+  height: 180px;
+  background-size: cover;
   position: relative;
   margin-bottom: 20px;
+  background-repeat: no-repeat;
+  color: rgba(347, 95, 61, 0);
 }
 
 i {
-  color: red;
   position: absolute;
   right: 5px;
   bottom: 5px;
+}
+
+.imageLink {
+  display: block;
+}
+
+.footer {
+  width: 100%;
+  background-color: #D3D3D3;
+  padding: 10px 20px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.appName {
+  text-align: left;
+}
+
+.copyright {
+  text-align: right;
 }
