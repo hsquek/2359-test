@@ -32,11 +32,12 @@ class Image extends Component {
       <Col xs={6} md={3}>
         <Col xs={12} md={12}
           className='imageFrame'
-          style={{ backgroundImage: 'url(' + (this.props.image.images.original.url) + ')', color: heartOpacity }}
+          style={{ color: heartOpacity }}
           onClick={this.handleClick}
           onMouseEnter={this.handleMouseEnter}
           onMouseLeave={this.handleMouseLeave}
           >
+          <img className='image' src={this.props.image.images.original.url} />
           <i className='fa fa-heart' aria-hidden='true' />
         </Col>
       </Col>
@@ -45,3 +46,5 @@ class Image extends Component {
 }
 
 export default Image
+
+// backgroundImage: 'url(' + (this.props.image.images.original.url) + ')',
